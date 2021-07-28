@@ -1,9 +1,11 @@
 package com.company;
 
+import com.company.controller.WebKioskApp;
 import com.company.helpers.ConcreteStudentDAO;
 import com.company.helpers.Connection;
 import com.company.helpers.LoginAuthManager;
 import com.company.helpers.PasswordHashable;
+import com.company.view.WebKioskView;
 
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -36,9 +38,13 @@ public class Main {
 //            e.printStackTrace();
 //        }
 
-        var manager = new LoginAuthManager(Connection.get(), new PasswordHashable());
-        var isAuthenticated= manager.authenticate("123-123", "type", "password");
-        System.out.println(isAuthenticated);
+//        var manager = new LoginAuthManager(Connection.get(), new PasswordHashable());
+//        var isAuthenticated= manager.authenticate("123-123", "type", "password");
+//        System.out.println(isAuthenticated);
+
+        var connection = Connection.get();
+        var app = new WebKioskApp(connection);
+        app.run();
     }
 
 }
