@@ -1,9 +1,21 @@
 package com.company.model;
 
+import com.company.helpers.StudentPersonBuilder;
+
 public class StudentPerson extends Person{
+
+    private static StudentBuilder studentBuilder = null;
+
     private String course;
     private String college;
     private int yearLevel;
+    private String studentId;
+
+    public static StudentBuilder getStudentBuilder() {
+        if(studentBuilder == null)
+            studentBuilder = new StudentBuilder();
+        return studentBuilder;
+    }
 
     public String getCourse() {
         return course;
@@ -29,4 +41,15 @@ public class StudentPerson extends Person{
         this.yearLevel = yearLevel;
     }
 
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+
+    public static class StudentBuilder extends StudentPersonBuilder<StudentBuilder> {
+        private StudentBuilder(){}
+    }
 }

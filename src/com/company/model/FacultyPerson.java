@@ -1,10 +1,22 @@
 package com.company.model;
 
+import com.company.helpers.FacultyPersonBuilder;
+
 public class FacultyPerson extends Person{
+
+    private static FacultyBuilder facultyBuilder = null;
+
     private String department;
     private String degree;
     private String lastSchool;
     private String civilStatus;
+    private String facultyId;
+
+    public static FacultyBuilder getFacultyBuilder() {
+        if(facultyBuilder == null)
+            facultyBuilder = new FacultyBuilder();
+        return facultyBuilder;
+    }
 
     public String getDepartment() {
         return department;
@@ -36,5 +48,17 @@ public class FacultyPerson extends Person{
 
     public void setCivilStatus(String civilStatus) {
         this.civilStatus = civilStatus;
+    }
+
+    public String getFacultyId() {
+        return facultyId;
+    }
+
+    public void setFacultyId(String facultyId) {
+        this.facultyId = facultyId;
+    }
+
+    public static class FacultyBuilder extends FacultyPersonBuilder<FacultyBuilder>{
+        private FacultyBuilder(){}
     }
 }

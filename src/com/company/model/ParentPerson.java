@@ -1,14 +1,26 @@
 package com.company.model;
 
+import com.company.helpers.ParentPersonBuilder;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ParentPerson extends Person{
+
+    private static ParentBuilder parentBuilder = null;
+
     private String occupation;
     private String degree;
     private String lastSchool;
     private String civilStatus;
-    private final List<String> childrenId = new ArrayList<>();
+    private List<String> childrenId = new ArrayList<>();
+    private String parentId;
+
+    public static ParentBuilder getParentBuilder() {
+        if(parentBuilder == null)
+            parentBuilder = new ParentBuilder();
+        return parentBuilder;
+    }
 
     public String getOccupation() {
         return occupation;
@@ -44,5 +56,21 @@ public class ParentPerson extends Person{
 
     public List<String> getChildrenId() {
         return childrenId;
+    }
+
+    public void setChildrenId(List<String> childrenId) {
+        this.childrenId = childrenId;
+    }
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
+
+    public static class ParentBuilder extends ParentPersonBuilder<ParentBuilder> {
+        private ParentBuilder(){}
     }
 }
