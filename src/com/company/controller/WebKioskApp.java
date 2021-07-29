@@ -1,7 +1,6 @@
 package com.company.controller;
 
-import com.company.helpers.LoginAuthManager;
-import com.company.helpers.PasswordHashable;
+import com.company.helpers.*;
 import com.company.model.AccountInfo;
 import com.company.view.WebKioskView;
 
@@ -17,7 +16,7 @@ public class WebKioskApp {
     }
 
     public void run(){
-        while (isRunning()){
+        while (WebKioskView.isRunning()){
             authenticate();
             dashboard();
         }
@@ -31,10 +30,16 @@ public class WebKioskApp {
 
     private void dashboard(){
 
-    }
+        var dao = switch (accountInfo.getAccountType()){
+            case STUDENT -> new ConcreteStudentDAO(connection);
+            case PARENT -> new ConcreteParentDAO(connection);
+            case FACULTY -> new ConcreteFacultyDAO(connection);
+        };
 
-    private boolean isRunning(){
-        return true;
+        WebKioskView.dashboard(accountInfo,
+                new ConcreteUpdateAccountPassword(accountInfo.getAccountId(), connection),
+                dao,
+                new LoginAuthManager(connection, new PasswordHashable()));
     }
-
+    
 }
